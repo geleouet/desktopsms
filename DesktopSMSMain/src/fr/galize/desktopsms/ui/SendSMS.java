@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.desktopSMS.ui;
+package fr.galize.desktopsms.ui;
 
 import java.awt.event.ActionEvent;
 

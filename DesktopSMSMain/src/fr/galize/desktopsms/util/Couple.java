@@ -1,4 +1,4 @@
-package org.desktopSMS.util;
+package fr.galize.desktopsms.util;
 
 public class Couple<T,U> {
 	

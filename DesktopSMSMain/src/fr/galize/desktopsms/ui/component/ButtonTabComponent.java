@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */ 
 
-package org.desktopSMS.ui.component;
+package fr.galize.desktopsms.ui.component;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;

@@ -1,4 +1,4 @@
-package org.desktopSMS.model;
+package fr.galize.desktopsms.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

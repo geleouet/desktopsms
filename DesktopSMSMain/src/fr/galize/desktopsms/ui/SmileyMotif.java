@@ -1,4 +1,4 @@
-package org.desktopSMS.ui;
+package fr.galize.desktopsms.ui;
 
 import javax.swing.ImageIcon;
 

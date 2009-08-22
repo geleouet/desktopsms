@@ -1,4 +1,4 @@
-package org.desktopSMS.actions;
+package fr.galize.desktopsms.actions;
 
 import java.awt.Component;
 import java.awt.Dialog;
@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import org.desktopSMS.ApplicationContexte;
-import org.desktopSMS.ui.AppRessources;
+import fr.galize.desktopsms.ApplicationContexte;
+import fr.galize.desktopsms.ui.AppRessources;
 
 public class PreferenceSettings extends AbstractAction {
 
