@@ -1,4 +1,4 @@
-package org.desktopSMS;
+package fr.galize.android;
 
 import android.app.Activity;
 import android.content.Context;

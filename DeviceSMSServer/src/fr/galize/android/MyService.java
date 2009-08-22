@@ -1,4 +1,4 @@
-package org.desktopSMS;
+package fr.galize.android;
 
 import java.io.IOException;
 import java.net.ServerSocket;

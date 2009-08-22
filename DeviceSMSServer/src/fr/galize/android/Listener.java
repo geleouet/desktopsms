@@ -1,4 +1,4 @@
-package org.desktopSMS;
+package fr.galize.android;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,7 +31,6 @@ public class Listener implements Runnable {
 	
 	final BufferedReader _in;
 
-	private final Main main_activity;
 
 	private final Accepted accepted;
 	
@@ -39,7 +38,6 @@ public class Listener implements Runnable {
 		super();
 		this.context = context;
 		this._in = _in;
-		this.main_activity = main_activity;
 		this.accepted = accepted;
 	}
 
