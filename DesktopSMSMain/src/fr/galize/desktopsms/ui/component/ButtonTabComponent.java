@@ -34,8 +34,8 @@ package org.desktopSMS.ui.component;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-import org.desktopSMS.model.Conversation;
-import org.desktopSMS.model.MainModel;
+import fr.galize.desktopsms.model.Conversation;
+import fr.galize.desktopsms.model.MainModel;
 
 import java.awt.*;
 import java.awt.event.*;

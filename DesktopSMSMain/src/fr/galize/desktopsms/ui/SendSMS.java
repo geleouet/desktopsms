@@ -8,9 +8,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JTextField;
 
-import org.desktopSMS.comm.Communication;
-import org.desktopSMS.model.Conversation;
-import org.desktopSMS.model.SMSSender;
+import fr.galize.desktopsms.comm.Communication;
+import fr.galize.desktopsms.model.Conversation;
+import fr.galize.desktopsms.model.SMSSender;
 
 final class SendSMS extends AbstractAction {
 	/**

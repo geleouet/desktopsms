@@ -1,4 +1,4 @@
-package org.desktopSMS.comm;
+package fr.galize.desktopsms.comm;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -13,10 +13,10 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Date;
 
-import org.desktopSMS.ApplicationContexte;
-import org.desktopSMS.Logger;
-import org.desktopSMS.actions.ProgressionListener;
-import org.desktopSMS.model.MainModel;
+import fr.galize.desktopsms.ApplicationContexte;
+import fr.galize.desktopsms.Logger;
+import fr.galize.desktopsms.actions.ProgressionListener;
+import fr.galize.desktopsms.model.MainModel;
 
 public class Communication {
 
@@ -145,7 +145,7 @@ public class Communication {
 		
 		String path2adb=ApplicationContexte.path2adb;
 		try {
-			Runtime.getRuntime().exec(path2adb+" shell am start -a android.intent.action.MAIN -n org.desktopSMS/org.desktopSMS.Main" );
+			Runtime.getRuntime().exec(path2adb+" shell am start -a android.intent.action.MAIN -n fr.galize.desktopsms/fr.galize.desktopsms.Main" );
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new CommunicationException("Unable to launch application",e);

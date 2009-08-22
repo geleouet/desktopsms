@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
-import org.desktopSMS.model.Conversation;
+import fr.galize.desktopsms.model.Conversation;
 
 public class ConversationPanel extends JPanel {
 

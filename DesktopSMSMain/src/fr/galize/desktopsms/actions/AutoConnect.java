@@ -1,4 +1,4 @@
-package org.desktopSMS.actions;
+package fr.galize.desktopsms.actions;
 
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.AbstractAction;
 
-import org.desktopSMS.comm.Communication;
+import fr.galize.desktopsms.comm.Communication;
 
 public class AutoConnect extends AbstractAction {
 

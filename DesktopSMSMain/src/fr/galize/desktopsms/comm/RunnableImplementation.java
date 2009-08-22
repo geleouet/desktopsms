@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.desktopSMS.comm;
+package fr.galize.desktopsms.comm;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

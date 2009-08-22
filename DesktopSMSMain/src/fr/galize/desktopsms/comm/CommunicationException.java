@@ -1,4 +1,4 @@
-package org.desktopSMS.comm;
+package fr.galize.desktopsms.comm;
 
 public class CommunicationException extends Exception {
 

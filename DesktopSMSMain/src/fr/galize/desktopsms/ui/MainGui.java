@@ -42,16 +42,16 @@ import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import org.desktopSMS.ApplicationContexte;
-import org.desktopSMS.actions.Connection;
-import org.desktopSMS.actions.PreferenceSettings;
-import org.desktopSMS.actions.RefreshHisto;
-import org.desktopSMS.comm.Communication;
-import org.desktopSMS.model.Contact;
-import org.desktopSMS.model.Conversation;
-import org.desktopSMS.model.MainModel;
-import org.desktopSMS.model.PersistenceModel;
-import org.desktopSMS.ui.component.ButtonTabComponent;
+import fr.galize.desktopsms.ApplicationContexte;
+import fr.galize.desktopsms.actions.Connection;
+import fr.galize.desktopsms.actions.PreferenceSettings;
+import fr.galize.desktopsms.actions.RefreshHisto;
+import fr.galize.desktopsms.comm.Communication;
+import fr.galize.desktopsms.model.Contact;
+import fr.galize.desktopsms.model.Conversation;
+import fr.galize.desktopsms.model.MainModel;
+import fr.galize.desktopsms.model.PersistenceModel;
+import fr.galize.desktopsms.ui.component.ButtonTabComponent;
 
 public class MainGui extends JFrame {
 

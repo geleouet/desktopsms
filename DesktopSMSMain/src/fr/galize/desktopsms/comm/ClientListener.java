@@ -1,17 +1,17 @@
 /**
  * 
  */
-package org.desktopSMS.comm;
+package fr.galize.desktopsms.comm;
 
 import java.io.BufferedReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.desktopSMS.model.Contact;
-import org.desktopSMS.model.MainModel;
-import org.desktopSMS.model.SMS;
-import org.desktopSMS.model.SMSSender;
-import org.desktopSMS.model.SendingStatus;
+import fr.galize.desktopsms.model.Contact;
+import fr.galize.desktopsms.model.MainModel;
+import fr.galize.desktopsms.model.SMS;
+import fr.galize.desktopsms.model.SMSSender;
+import fr.galize.desktopsms.model.SendingStatus;
 
 final class ClientListener implements Runnable {
 	private final BufferedReader _in;

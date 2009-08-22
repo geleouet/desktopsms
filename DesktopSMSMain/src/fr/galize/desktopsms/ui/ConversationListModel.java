@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.AbstractListModel;
 
-import org.desktopSMS.model.Conversation;
+import fr.galize.desktopsms.model.Conversation;
 
 public class ConversationListModel extends  AbstractListModel implements PropertyChangeListener {
 

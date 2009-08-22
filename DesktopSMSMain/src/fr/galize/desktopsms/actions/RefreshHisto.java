@@ -1,4 +1,4 @@
-package org.desktopSMS.actions;
+package fr.galize.desktopsms.actions;
 
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
@@ -6,9 +6,9 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.AbstractAction;
 
-import org.desktopSMS.comm.Communication;
-import org.desktopSMS.model.MainModel;
-import org.desktopSMS.ui.AppRessources;
+import fr.galize.desktopsms.comm.Communication;
+import fr.galize.desktopsms.model.MainModel;
+import fr.galize.desktopsms.ui.AppRessources;
 
 public class RefreshHisto extends AbstractAction {
 

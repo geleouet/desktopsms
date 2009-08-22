@@ -1,4 +1,4 @@
-package org.desktopSMS;
+package fr.galize.desktopsms;
 
 public class Logger {
 

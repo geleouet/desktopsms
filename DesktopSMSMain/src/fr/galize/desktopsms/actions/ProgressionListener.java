@@ -1,4 +1,4 @@
-package org.desktopSMS.actions;
+package fr.galize.desktopsms.actions;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

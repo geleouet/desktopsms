@@ -33,9 +33,9 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 
-import org.desktopSMS.model.SMS;
-import org.desktopSMS.model.SendingStatus;
-import org.desktopSMS.util.Couple;
+import fr.galize.desktopsms.model.SMS;
+import fr.galize.desktopsms.model.SendingStatus;
+import fr.galize.desktopsms.util.Couple;
 
 public class SMSCellRenderer implements ListCellRenderer {
 

@@ -20,7 +20,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-import org.desktopSMS.model.Contact;
+import fr.galize.desktopsms.model.Contact;
 
 public class ContactCellRenderer implements ListCellRenderer {
 

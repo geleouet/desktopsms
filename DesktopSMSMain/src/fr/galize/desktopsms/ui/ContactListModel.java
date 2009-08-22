@@ -6,7 +6,7 @@ import java.beans.PropertyChangeListener;
 import javax.swing.AbstractListModel;
 import javax.swing.SwingUtilities;
 
-import org.desktopSMS.model.MainModel;
+import fr.galize.desktopsms.model.MainModel;
 
 public class ContactListModel extends  AbstractListModel {
 

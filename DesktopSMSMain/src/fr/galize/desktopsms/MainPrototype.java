@@ -1,4 +1,4 @@
-package org.desktopSMS;
+package fr.galize.desktopsms;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -303,7 +303,7 @@ public class MainPrototype {
 	@SuppressWarnings("unused")
 	private static void launchServer() {
 		try {
-			Runtime.getRuntime().exec(path2adb+"adb shell am start -a android.intent.action.MAIN -n org.desktopSMS/org.desktopSMS.Main" );
+			Runtime.getRuntime().exec(path2adb+"adb shell am start -a android.intent.action.MAIN -n fr.galize.desktopsms/fr.galize.desktopsms.Main" );
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,4 +1,4 @@
-package org.desktopSMS.actions;
+package fr.galize.desktopsms.actions;
 
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
@@ -10,9 +10,9 @@ import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.ProgressMonitor;
 
-import org.desktopSMS.comm.Communication;
-import org.desktopSMS.comm.CommunicationException;
-import org.desktopSMS.ui.AppRessources;
+import fr.galize.desktopsms.comm.Communication;
+import fr.galize.desktopsms.comm.CommunicationException;
+import fr.galize.desktopsms.ui.AppRessources;
 
 public class Connection extends AbstractAction {
 

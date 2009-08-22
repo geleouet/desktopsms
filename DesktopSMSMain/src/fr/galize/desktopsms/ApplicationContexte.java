@@ -1,4 +1,4 @@
-package org.desktopSMS;
+package fr.galize.desktopsms;
 
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
