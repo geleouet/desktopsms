@@ -6,6 +6,7 @@ package fr.galize.desktopsms.ui;
 import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import fr.galize.desktopsms.comm.Communication;
@@ -36,7 +37,13 @@ final class SendSMS extends AbstractAction {
 				String number = conversation.getContact().getNumber();
 				String body = text;
 				long id=Communication.getInstance().sendSMS(number, body);
-				SMSSender.getInstance().register(number,body,conversation,id);
+				if (id>0)
+					SMSSender.getInstance().register(number,body,conversation,id);
+				else
+				{
+					JOptionPane.showMessageDialog(field, "Error while sending", "Sending error", JOptionPane.ERROR_MESSAGE);
+					field.setText(text);
+				}
 
 			}},"SendSMS").start();;
 

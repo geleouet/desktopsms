@@ -54,7 +54,7 @@ import fr.galize.desktopsms.ui.component.ButtonTabComponent;
 
 public class MainGui extends JFrame {
 
-	private static final boolean DEBUG = !true;
+	private static final boolean DEBUG = true;
 	private static final long serialVersionUID = 8940535937031738625L;
 
 	public MainGui() {
@@ -264,19 +264,21 @@ public class MainGui extends JFrame {
 
 			protected synchronized String readLine(PipedInputStream in) throws IOException {
 				String input="";
-				do
-				{
-					byte b[]=new byte[128];
-					int read = in.read(b);
-					if (read>0)
-						input=input+new String(b,0,read);
-					else
-						break;
-				}while( !input.endsWith("\n") && !input.endsWith("\r\n"));
+				try {
+					do
+					{
+						byte b[]=new byte[128];
+						int read = in.read(b);
+						if (read>0)
+							input=input+new String(b,0,read);
+						else
+							break;
+					}while( !input.endsWith("\n") && !input.endsWith("\r\n"));
+				} catch (Exception e) {}
 				return input;
 			} 
 		});
-		reader.start(); 
+		//reader.start(); 
 	}
 
 	static  private final PipedInputStream pin=new PipedInputStream();
@@ -296,14 +298,14 @@ public class MainGui extends JFrame {
 			}
 		}
 		ApplicationContexte.init();
-		if (!DEBUG)
+		/*if (!DEBUG)
 		try {
 			PipedOutputStream pout=new PipedOutputStream(pin);
 			System.setErr(new PrintStream(pout,true));
 		} catch (java.io.IOException io) {
 
 		} catch (SecurityException se) {
-		}
+		}*/
 		AppRessources.loadImages();
 		try {
 			SwingUtilities.invokeAndWait(new Runnable(){

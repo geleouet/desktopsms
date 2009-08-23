@@ -187,9 +187,10 @@ public class Communication {
 			_out.write("OK");
 			_out.flush();
 			System.out.println("SMS Sent");
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			closeSocket();
+			return -1;
 		}
 		return l;
 	}
