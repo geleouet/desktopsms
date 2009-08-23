@@ -248,8 +248,10 @@ public class MainGui extends JFrame {
 				System.out.println("Run logger window");
 				while (true) {
 					//					try { this.wait(100);}catch(InterruptedException ie) {}
+					
 					try {
-						if (pin.available()!=0) {
+//						if (pin.available()!=0) 
+						{
 							String input=readLine(pin);
 							textArea.append(input);
 							System.out.println(input);
@@ -264,11 +266,12 @@ public class MainGui extends JFrame {
 				String input="";
 				do
 				{
-					int available=in.available();
-					if (available==0) break;
-					byte b[]=new byte[available];
-					in.read(b);
-					input=input+new String(b,0,b.length);
+					byte b[]=new byte[128];
+					int read = in.read(b);
+					if (read>0)
+						input=input+new String(b,0,read);
+					else
+						break;
 				}while( !input.endsWith("\n") && !input.endsWith("\r\n"));
 				return input;
 			} 
@@ -309,7 +312,6 @@ public class MainGui extends JFrame {
 					new MainGui().setVisible(true);
 				}});
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		MainModel.getInstance();
 

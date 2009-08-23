@@ -6,21 +6,21 @@ import javax.swing.ImageIcon;
 
 public class AppRessources {
 
-	private final static String DSMS_PATH = new String("org/desktopSMS/images/desktopSMS.png");
-	private final static String USB_PATH = new String("org/desktopSMS/images/usb.png");
-	private final static String WIFI_PATH = new String("org/desktopSMS/images/wifi.png");
-	private final static String PAGE_PATH = new String("org/desktopSMS/images/folder_page.png");
-	private final static String LIGHTING_PATH = new String("org/desktopSMS/images/lightning.png");
-	private final static String BULLET_PATH = new String("org/desktopSMS/images/bullet_black.png");
-	private final static String SCRIPTERROR_PATH = new String("org/desktopSMS/images/scripterror.png");
-	private final static String SCRIPTGO_PATH = new String("org/desktopSMS/images/script_go.png");
-	private final static String COMPUTER_PATH = new String("org/desktopSMS/images/computer.png");
-	private final static String CONNECT_PATH = new String("org/desktopSMS/images/connect.png");
-	private final static String DISCONNECT_PATH = new String("org/desktopSMS/images/disconnect.png");
-	private final static String CONNECTBLUE_PATH = new String("org/desktopSMS/images/connectblue.png");
-	private final static String DISCONNECTBLUE_PATH = new String("org/desktopSMS/images/disconnectblue.png");
+	private final static String DSMS_PATH = new String("fr/galize/desktopsms/images/desktopSMS.png");
+	private final static String USB_PATH = new String("fr/galize/desktopsms/images/usb.png");
+	private final static String WIFI_PATH = new String("fr/galize/desktopsms/images/wifi.png");
+	private final static String PAGE_PATH = new String("fr/galize/desktopsms/images/folder_page.png");
+	private final static String LIGHTING_PATH = new String("fr/galize/desktopsms/images/lightning.png");
+	private final static String BULLET_PATH = new String("fr/galize/desktopsms/images/bullet_black.png");
+	private final static String SCRIPTERROR_PATH = new String("fr/galize/desktopsms/images/scripterror.png");
+	private final static String SCRIPTGO_PATH = new String("fr/galize/desktopsms/images/script_go.png");
+	private final static String COMPUTER_PATH = new String("fr/galize/desktopsms/images/computer.png");
+	private final static String CONNECT_PATH = new String("fr/galize/desktopsms/images/connect.png");
+	private final static String DISCONNECT_PATH = new String("fr/galize/desktopsms/images/disconnect.png");
+	private final static String CONNECTBLUE_PATH = new String("fr/galize/desktopsms/images/connectblue.png");
+	private final static String DISCONNECTBLUE_PATH = new String("fr/galize/desktopsms/images/disconnectblue.png");
 
-	private final static String EMO_HAPPY_PATH = new String("org/desktopSMS/images/emo/emo_im_happy.png");
+	private final static String EMO_HAPPY_PATH = new String("fr/galize/desktopsms/images/emo/emo_im_happy.png");
 	
 	
 	public static ImageIcon EMO_HAPPY_ICON=null;
