@@ -68,7 +68,7 @@ public class MainModel {
 	public MainModel() {
 		super();
 		// Cherche un historique de sms
-		File f = new File(ApplicationContexte.path2save+"histo.xml");
+		File f = new File(ApplicationContexte.path2save+"/"+"histo.xml");
 		System.out.println("Loading historique :"+f.getAbsolutePath());
 		try {
 			XMLDecoder decoder= new XMLDecoder(new FileInputStream(f));

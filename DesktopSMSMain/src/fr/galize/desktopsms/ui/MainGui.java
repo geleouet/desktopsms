@@ -20,7 +20,10 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -69,7 +72,7 @@ public class MainGui extends JFrame {
 		addWindowListener(new WindowAdapter(){
 
 			public void windowClosing(WindowEvent e) {
-				File f = new File(ApplicationContexte.path2save+"histo.xml");
+				File f = new File(ApplicationContexte.path2save+"/"+"histo.xml");
 				System.out.println("Saving historique :"+f.getAbsolutePath());
 				try {
 					try {
@@ -153,7 +156,22 @@ public class MainGui extends JFrame {
 			private static final long serialVersionUID = 8751441815217104332L;
 
 			public void actionPerformed(ActionEvent e) {
-				JScrollPane message = new JScrollPane(textArea);
+				new Thread(new Runnable(){
+
+					public void run() {
+						Map<Thread, StackTraceElement[]> allStackTraces = Thread.getAllStackTraces();
+						for (Entry<Thread, StackTraceElement[]> en:allStackTraces.entrySet())
+						{
+							String name2 = en.getKey().getName();
+							System.out.println(name2);
+							String string = Arrays.toString(en.getValue());
+							System.out.println(string);
+							System.out.println();
+						}						
+					}}).start();
+				
+				if (1>0) return;
+				JScrollPane message = new JScrollPane(new JTextArea());
 				JFrame p =new JFrame("Logs");
 				p.getContentPane().add(message,BorderLayout.CENTER);
 				p.setPreferredSize(new Dimension(400,400));
