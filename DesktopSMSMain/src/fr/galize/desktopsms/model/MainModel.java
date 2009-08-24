@@ -88,7 +88,6 @@ public class MainModel {
 		if (!contacts.contains(c))
 		{
 			contacts.add(c);
-			System.out.println("AddContact");
 			Collections.sort(contacts);
 			support.firePropertyChange("addContact",null,c);
 		}

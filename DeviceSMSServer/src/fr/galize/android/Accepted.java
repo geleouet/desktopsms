@@ -47,13 +47,13 @@ public class Accepted implements Runnable {
 		// Creation du thread d'ecoute
 		BufferedReader _in =null;
 		try {
-			_in = new BufferedReader(new InputStreamReader(accept.getInputStream()));
+			_in = new BufferedReader(new InputStreamReader(accept.getInputStream()),1024);
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
 		writer = null;
 		try {
-			writer = new BufferedWriter(new OutputStreamWriter(accept.getOutputStream()));
+			writer = new BufferedWriter(new OutputStreamWriter(accept.getOutputStream()),1024);
 		} catch (IOException e2) {
 			e2.printStackTrace();
 			return;
@@ -307,7 +307,7 @@ public class Accepted implements Runnable {
 	public void stopListener() {
 		listener.quit();
 		try {
-			listenerThread.join();
+			listenerThread.join(5000);
 		} catch (InterruptedException e) {}
 		try {
 			writer.close();

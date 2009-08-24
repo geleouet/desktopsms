@@ -4,7 +4,6 @@
 package fr.galize.desktopsms.comm;
 
 import java.io.BufferedReader;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.galize.desktopsms.model.Contact;
@@ -66,13 +65,13 @@ final class ClientListener implements Runnable {
 
 					Date d = new Date(Long.parseLong(time));
 
-					System.out
-							.println("_________________________________________________________________\n");
-					System.out.println(new SimpleDateFormat("dd/MM/yyyy hh:mm")
-							.format(d)
-							+ "/" + numero + "/" + body);
-					System.out
-							.println("_________________________________________________________________");
+//					System.out
+//							.println("_________________________________________________________________\n");
+//					System.out.println(new SimpleDateFormat("dd/MM/yyyy hh:mm")
+//							.format(d)
+//							+ "/" + numero + "/" + body);
+//					System.out
+//							.println("_________________________________________________________________");
 
 					SMS s = new SMS(body, numero, MainModel.getInstance()
 							.getContactByAddress(numero).getPerson(), d,
@@ -137,11 +136,11 @@ final class ClientListener implements Runnable {
 					Communication.readChar(_in, charCur);
 					Communication.readChar(_in, charCur);
 
-					System.out
-							.println("_________________________________________________________________\n");
-					System.out.println(person + "/" + number + " " + name);
-					System.out
-							.println("_________________________________________________________________");
+//					System.out
+//							.println("_________________________________________________________________\n");
+//					System.out.println(person + "/" + number + " " + name);
+//					System.out
+//							.println("_________________________________________________________________");
 
 					Contact c = new Contact(person, name, number);
 					MainModel.getInstance().addContact(c);
@@ -185,21 +184,21 @@ final class ClientListener implements Runnable {
 					Communication.readChar(_in, charCur);
 
 					Date d = new Date(Long.parseLong(date));
-					System.out
-							.println("_________________________________________________________________\n");
-					System.out.println(person
-							+ "/"
-							+ adress
-							+ " "
-							+ date
-							+ " "
-							+ (new SimpleDateFormat("dd/MM/yyyy hh:mm")
-									.format(d)) + " " + read);
-					System.out
-							.println("-----------------------------------------------------------------");
-					System.out.println(body);
-					System.out
-							.println("_________________________________________________________________");
+//					System.out
+//							.println("_________________________________________________________________\n");
+//					System.out.println(person
+//							+ "/"
+//							+ adress
+//							+ " "
+//							+ date
+//							+ " "
+//							+ (new SimpleDateFormat("dd/MM/yyyy hh:mm")
+//									.format(d)) + " " + read);
+//					System.out
+//							.println("-----------------------------------------------------------------");
+//					System.out.println(body);
+//					System.out
+//							.println("_________________________________________________________________");
 
 					SMS s = new SMS(body, adress, person, d, read);
 					MainModel.getInstance().addSms(s);
@@ -244,21 +243,21 @@ final class ClientListener implements Runnable {
 					Communication.readChar(_in, charCur);
 
 					Date d = new Date(Long.parseLong(date));
-					System.out
-							.println("_________________________________________________________________\n");
-					System.out.println(person
-							+ "/"
-							+ adress
-							+ " "
-							+ date
-							+ " "
-							+ (new SimpleDateFormat("dd/MM/yyyy hh:mm")
-									.format(d)) + " " + read);
-					System.out
-							.println("-----------------------------------------------------------------");
-					System.out.println(body);
-					System.out
-							.println("_________________________________________________________________");
+//					System.out
+//							.println("_________________________________________________________________\n");
+//					System.out.println(person
+//							+ "/"
+//							+ adress
+//							+ " "
+//							+ date
+//							+ " "
+//							+ (new SimpleDateFormat("dd/MM/yyyy hh:mm")
+//									.format(d)) + " " + read);
+//					System.out
+//							.println("-----------------------------------------------------------------");
+//					System.out.println(body);
+//					System.out
+//							.println("_________________________________________________________________");
 
 					SMS s = new SMS(body, adress, person, d, read);
 					MainModel.getInstance().addEmit(s);

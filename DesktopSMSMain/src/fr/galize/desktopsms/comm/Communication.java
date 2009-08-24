@@ -130,8 +130,8 @@ public class Communication {
 			// Firewall
 		}
 		
-		_out = new BufferedWriter(new OutputStreamWriter(s.getOutputStream(),"UTF-8"));
-		_in = new BufferedReader(new InputStreamReader(s.getInputStream(),"UTF-8"));
+		_out = new BufferedWriter(new OutputStreamWriter(s.getOutputStream(),"UTF-8"),1024);
+		_in = new BufferedReader(new InputStreamReader(s.getInputStream(),"UTF-8"),1024);
 		
 			
 		//new Thread(new RunnableImplementation(_out)).start();

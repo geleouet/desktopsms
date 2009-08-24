@@ -30,12 +30,12 @@ public class SMSSender {
 		newSMS.setEmit(true);
 		attente2.put(id, newSMS);
 		newSMS.setState(SendingStatus.SENDING);
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		reconciliate(id,null);
 		MainModel.getInstance().addEmit(newSMS);
 	}
@@ -45,11 +45,17 @@ public class SMSSender {
 		SMS sms = attente2.get(id);
 		if (newstatus!=null&&sms!=null)
 		{
+			attente.put(id,newstatus);
 			sms.setState(newstatus);
 		} else if (newstatus!=null&&sms==null)
 		{
-			if (attente.get(id)!=null&&attente.get(id)!=SendingStatus.DELIVERED&&attente.get(id)!=SendingStatus.CANCELLED)
+			if (status!=null
+					&&status!=SendingStatus.DELIVERED
+					&&status!=SendingStatus.CANCELLED)
 				attente.put(id,newstatus);
+			else if (status==null)
+				attente.put(id,newstatus);
+				
 			
 		}else if (newstatus==null&&sms!=null)
 		{

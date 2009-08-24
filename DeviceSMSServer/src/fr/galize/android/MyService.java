@@ -45,12 +45,14 @@ public class MyService extends Service {
 					ss = new ServerSocket(44000);
 //					ss.setSoTimeout(5000);
 					ss.setReuseAddress(true);
+					ss.setPerformancePreferences(100, 100, 1);
 					Toast toast = Toast.makeText(context, text, duration);
 					toast.show();
 					while (!stopped)
 					{
 						Socket accept = ss.accept();
-						accept.setReuseAddress(true);
+//						accept.setReuseAddress(true);
+						accept.setPerformancePreferences(10, 100, 1);
 						accept.setKeepAlive(true);
 						Accepted a = new Accepted(accept,context,MAIN_ACTIVITY,MyService.this);
 						accepted.add(a);
