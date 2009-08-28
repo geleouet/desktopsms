@@ -93,11 +93,7 @@ public class MyService extends Service {
 	public static void receiveSMS(String messageBody,
 			String originatingAddress, long timestampMillis) {
 		for (Accepted a:accepted)
-		try {
-				a.sendNew(messageBody,originatingAddress,timestampMillis);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			a.sendNew(messageBody,originatingAddress,timestampMillis);
 		
 	}
 

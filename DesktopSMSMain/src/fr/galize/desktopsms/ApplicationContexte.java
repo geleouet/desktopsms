@@ -11,6 +11,7 @@ public class ApplicationContexte {
 //	public static String path2adb="/Users/jacques/SDKs/android/tools/";
 	private static boolean isUsb=true;
 	private static String deviceIp="10.209.57.178";
+	private static String id=null;
 	
 	
 	public static void init()
@@ -79,5 +80,15 @@ public class ApplicationContexte {
 
 	public static String getDeviceIp() {
 		return deviceIp;
+	}
+
+
+	public static String getId() {
+		return id;
+	}
+
+
+	public static void setId(String id) {
+		ApplicationContexte.id = id;
 	}
 }

@@ -1,6 +1,5 @@
 package fr.galize.android;
 
-import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -9,8 +8,6 @@ import java.util.Enumeration;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
@@ -138,17 +135,6 @@ public class Main extends Activity {
 		handler.post(r);
 	}
 
-	public void receiveSMS(String messageBody, String originatingAddress,
-			long timestampMillis) {
-
-		try {
-			accepted.sendNew(messageBody,originatingAddress,timestampMillis);
-		} catch (IOException e) {
-			e.printStackTrace();
-			quit();
-		}
-
-	}
 
 
 	public void setAccepted(Accepted accepted) {

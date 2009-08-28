@@ -15,10 +15,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.XMLEncoder;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -35,6 +31,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -57,22 +54,18 @@ import fr.galize.desktopsms.ui.component.ButtonTabComponent;
 
 public class MainGui extends JFrame {
 
-	private static final boolean DEBUG = true;
 	private static final long serialVersionUID = 8940535937031738625L;
 
 	public MainGui() {
 		super("Desktop SMS");
-//		try {
-//			JRootPane root = getRootPane( );
-//			root.putClientProperty( "apple.awt.brushMetalLook", Boolean.TRUE );
-//			
-//		} catch (Exception e2) {}
 		setIconImage(AppRessources.DSMS_ICON.getImage());
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter(){
 
 			public void windowClosing(WindowEvent e) {
-				File f = new File(ApplicationContexte.path2save+"/"+"histo.xml");
+				if (ApplicationContexte.getId()==null)
+					System.exit(0);
+				File f = new File(ApplicationContexte.path2save+"/SMSDesktop/"+ApplicationContexte.getId()+"/histo.xml");
 				System.out.println("Saving historique :"+f.getAbsolutePath());
 				try {
 					try {
@@ -105,7 +98,6 @@ public class MainGui extends JFrame {
 		final JTabbedPane pane = new JTabbedPane();
 		final ContactListModel contacts = new ContactListModel();
 		final JList list = new JList(contacts);
-		final JTextArea textArea=new JTextArea();
 		// Menu
 		JMenu menu = new JMenu("?");
 		JMenuItem aboutMenu = new JMenuItem("About");
@@ -179,8 +171,11 @@ public class MainGui extends JFrame {
 				p.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				p.setVisible(true);
 			}});
+		JProgressBar progressBar=new JProgressBar();
+		Communication.getInstance().register(progressBar);
 		statebarre.add(statut);
 		statebarre.add(lastReceive);
+//		statebarre.add(progressBar);
 		statebarre.add(logbutton);
 
 		// Barre d'outils
@@ -258,51 +253,10 @@ public class MainGui extends JFrame {
 		getContentPane().add(barrePane, BorderLayout.NORTH);
 		getContentPane().add(statebarre, BorderLayout.SOUTH);
 
-
-		final Thread reader;
-		reader= new Thread(new Runnable(){
-
-			public void run() {
-				System.out.println("Run logger window");
-				while (true) {
-					//					try { this.wait(100);}catch(InterruptedException ie) {}
-					
-					try {
-//						if (pin.available()!=0) 
-						{
-							String input=readLine(pin);
-							textArea.append(input);
-							System.out.println(input);
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-
-			protected synchronized String readLine(PipedInputStream in) throws IOException {
-				String input="";
-				try {
-					do
-					{
-						byte b[]=new byte[128];
-						int read = in.read(b);
-						if (read>0)
-							input=input+new String(b,0,read);
-						else
-							break;
-					}while( !input.endsWith("\n") && !input.endsWith("\r\n"));
-				} catch (Exception e) {}
-				return input;
-			} 
-		});
-		//reader.start(); 
 	}
 
-	static  private final PipedInputStream pin=new PipedInputStream();
-
-
 	public static void main(String[] args) {
+		
 		for (UIManager.LookAndFeelInfo laf :
 			UIManager.getInstalledLookAndFeels() ){
 			if ("Nimbus".equals(laf.getName())) {

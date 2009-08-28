@@ -250,7 +250,7 @@ public class SMSCellRenderer implements ListCellRenderer {
 			//			state.setText("CANCELLED");
 			state.setIcon(AppRessources.SCRIPTERROR_ICON);
 			break;
-		case GENERIC_FAILURE:
+		case GENERICFAILURE:
 			//			state.setText("FAILURE");
 			state.setIcon(AppRessources.SCRIPTERROR_ICON);
 			break;

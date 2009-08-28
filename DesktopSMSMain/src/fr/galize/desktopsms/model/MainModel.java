@@ -3,8 +3,10 @@ package fr.galize.desktopsms.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -67,41 +69,33 @@ public class MainModel {
 	
 	public MainModel() {
 		super();
-		// Cherche un historique de sms
-		File f = new File(ApplicationContexte.path2save+"/"+"histo.xml");
-		System.out.println("Loading historique :"+f.getAbsolutePath());
-		try {
-			XMLDecoder decoder= new XMLDecoder(new FileInputStream(f));
-			PersistenceModel pm =(PersistenceModel) decoder.readObject();
-			contacts=pm.getContacts();
-			smss=pm.getSmss();
-			emits=pm.getEmits();
-			lastDate=pm.getLastDate();
-		} catch (Exception e) {
-		}
-		
-		
 	}
 
 	public void addContact(Contact c)
 	{
-		if (!contacts.contains(c))
-		{
-			contacts.add(c);
-			Collections.sort(contacts);
-			support.firePropertyChange("addContact",null,c);
+		synchronized (contacts) {
+
+			if (!contacts.contains(c))
+			{
+				contacts.add(c);
+				Collections.sort(contacts);
+				support.firePropertyChange("addContact",null,c);
+			}
 		}
 	}
 	public void addSms(SMS c)
 	{
-		if (!smss.contains(c))
-		{
-			smss.add(c);
-			updateLastDate(c);
-			updateConversation(c);
-			support.firePropertyChange("addSMS",null,c);
+		synchronized (smss) {
+
+			if (!smss.contains(c))
+			{
+				smss.add(c);
+				updateLastDate(c);
+				updateConversation(c);
+				support.firePropertyChange("addSMS",null,c);
+			}
 		}
-		
+
 	}
 	private void updateConversation(SMS c) {
 		// Search associated contact
@@ -197,15 +191,18 @@ public class MainModel {
 	}
 
 	public void addEmit(SMS c) {
-		if (!getEmits().contains(c))
-		{
-			c.setEmit(true);
-			getEmits().add(c);
-			updateLastDate(c);
-			updateConversation(c);
-			support.firePropertyChange("addEmit",null,c);
+		synchronized (emits) {
+
+			if (!getEmits().contains(c))
+			{
+				c.setEmit(true);
+				getEmits().add(c);
+				updateLastDate(c);
+				updateConversation(c);
+				support.firePropertyChange("addEmit",null,c);
+			}
 		}
-			
+
 	}
 
 	private void updateLastDate(SMS c) {
@@ -227,5 +224,52 @@ public class MainModel {
 
 	public List<SMS> getEmits() {
 		return emits;
+	}
+
+	public void init() {
+		// Cherche un historique de sms
+		File f = new File(ApplicationContexte.path2save+"/SMSDesktop/"+ApplicationContexte.getId()+"/histo.xml");
+		System.out.println("Loading historique :"+f.getAbsolutePath());
+		try {
+			XMLDecoder decoder= new XMLDecoder(new FileInputStream(f));
+			PersistenceModel pm =(PersistenceModel) decoder.readObject();
+			List<Contact> contacts_ = pm.getContacts();
+			for (Contact c:contacts_)
+				addContact(c);
+			List<SMS> smss_ = pm.getSmss();
+			for (SMS s:smss_)
+				addSms(s);
+			List<SMS> emits_ = pm.getEmits();
+			for (SMS s:emits_)
+				addEmit(s);
+			lastDate=pm.getLastDate();
+			
+		} catch (Exception e) {
+		}		
+	}
+
+	public void save() {
+		if (ApplicationContexte.getId()==null)
+			return;
+		File f = new File(ApplicationContexte.path2save+"/SMSDesktop/"+ApplicationContexte.getId()+"/histo.xml");
+		System.out.println("Saving historique :"+f.getAbsolutePath());
+		try {
+			try {
+				f.getParentFile().mkdirs();
+			} catch (Exception e1) {
+			}
+			
+			XMLEncoder encoder = new XMLEncoder(new FileOutputStream(f));
+			PersistenceModel pm= new PersistenceModel();
+			pm.setContacts(MainModel.getInstance().getContacts());
+			pm.setEmits(MainModel.getInstance().getEmits());
+			pm.setSmss(MainModel.getInstance().getSmss());
+			pm.setLastDate(MainModel.getInstance().getLastDate());
+			encoder.writeObject(pm);
+			encoder.flush();
+			encoder.close();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 }

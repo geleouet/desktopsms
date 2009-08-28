@@ -3,271 +3,157 @@
  */
 package fr.galize.desktopsms.comm;
 
-import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Date;
 
+import javax.swing.JProgressBar;
+
+import fr.galize.desktopsms.ApplicationContexte;
 import fr.galize.desktopsms.model.Contact;
 import fr.galize.desktopsms.model.MainModel;
 import fr.galize.desktopsms.model.SMS;
 import fr.galize.desktopsms.model.SMSSender;
 import fr.galize.desktopsms.model.SendingStatus;
 
-final class ClientListener implements Runnable {
-	private final BufferedReader _in;
+public final class ClientListener implements Runnable {
+	private final DataInputStream _in;
+	private final JProgressBar progressBar;
 
-	ClientListener(BufferedReader _in) {
+	ClientListener(DataInputStream _in, JProgressBar progressBar) {
 		this._in = _in;
+		this.progressBar = progressBar;
 	}
 
 	public void run() {
 		
 		System.out.println("Launching client listener");
 
-		char charCur[] = new char[1]; // déclaration d'un tableau de char d'1
-										// élement, _in.read() y stockera le
-										// char lu
-
 		try {
-			while (Communication.readChar(_in, charCur) != -1) // attente en
-																// boucle des
-																// messages
-																// provenant du
-																// client
-																// (bloquant sur
-																// _in.read())
+			while (true)
 			{
-				if (charCur[0] == 'N') {
-					// NEW
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-					String numero = "";
-					String body = "";
-					String time = "";
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						time += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						numero += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						body += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
+				int methode=_in.readInt();
+				switch (methode) {
+				case 1:
+					readSMS(_in);
+					break;
+				case 2:
+					readContact(_in);
+					break;
+				case 3:
+					readAck(_in);
+					break;
+				case 4:
+					readPhoto(_in);
+					break;
+				case 5:
+					readNew(_in);
+					break;
+				case 6:
+					readNumber(_in);
+					break;
 
-					// OK
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-
-					Date d = new Date(Long.parseLong(time));
-
-//					System.out
-//							.println("_________________________________________________________________\n");
-//					System.out.println(new SimpleDateFormat("dd/MM/yyyy hh:mm")
-//							.format(d)
-//							+ "/" + numero + "/" + body);
-//					System.out
-//							.println("_________________________________________________________________");
-
-					SMS s = new SMS(body, numero, MainModel.getInstance()
-							.getContactByAddress(numero).getPerson(), d,
-							"false");
-					MainModel.getInstance().addSms(s);
+				default:
+					System.err.println("Unknown methode id :"+methode);
+					break;
 				}
-				if (charCur[0] == 'A') {
-					// ACK
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-					String id = "";
-					String result = "";
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						id += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						result += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-
-					// OK
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-					SendingStatus status = SendingStatus.valueOf(result);
-					SMSSender.getInstance().reconciliate(Long.parseLong(id),
-							status);
-					System.out
-							.println("_________________________________________________________________\n");
-					System.out.println(id + "/" + result);
-					System.out
-							.println("_________________________________________________________________");
-				}
-				if (charCur[0] == 'P') {
-					// PHONE
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-					String name = "";
-					String number = "";
-					String person = "";
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {// person
-						person += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {// name
-						name += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {// numero
-						number += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-
-					// OK
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-
-//					System.out
-//							.println("_________________________________________________________________\n");
-//					System.out.println(person + "/" + number + " " + name);
-//					System.out
-//							.println("_________________________________________________________________");
-
-					Contact c = new Contact(person, name, number);
-					MainModel.getInstance().addContact(c);
-				}
-				if (charCur[0] == 'S') {
-					// SMS
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-					String body = "";
-					String adress = "";
-					String person = "";
-					String date = "";
-					String read = "";
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						body += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						adress += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						person += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						date += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						read += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					// OK
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-
-					Date d = new Date(Long.parseLong(date));
-//					System.out
-//							.println("_________________________________________________________________\n");
-//					System.out.println(person
-//							+ "/"
-//							+ adress
-//							+ " "
-//							+ date
-//							+ " "
-//							+ (new SimpleDateFormat("dd/MM/yyyy hh:mm")
-//									.format(d)) + " " + read);
-//					System.out
-//							.println("-----------------------------------------------------------------");
-//					System.out.println(body);
-//					System.out
-//							.println("_________________________________________________________________");
-
-					SMS s = new SMS(body, adress, person, d, read);
-					MainModel.getInstance().addSms(s);
-				}
-				if (charCur[0] == 'E') {
-					// EMIT
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-					String body = "";
-					String adress = "";
-					String person = "";
-					String date = "";
-					String read = "";
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						body += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						adress += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						person += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						date += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					_in.read(charCur, 0, 1);
-					while (charCur[0] != 0) {
-						read += charCur[0];
-						_in.read(charCur, 0, 1);
-					}
-					// OK
-					Communication.readChar(_in, charCur);
-					Communication.readChar(_in, charCur);
-
-					Date d = new Date(Long.parseLong(date));
-//					System.out
-//							.println("_________________________________________________________________\n");
-//					System.out.println(person
-//							+ "/"
-//							+ adress
-//							+ " "
-//							+ date
-//							+ " "
-//							+ (new SimpleDateFormat("dd/MM/yyyy hh:mm")
-//									.format(d)) + " " + read);
-//					System.out
-//							.println("-----------------------------------------------------------------");
-//					System.out.println(body);
-//					System.out
-//							.println("_________________________________________________________________");
-
-					SMS s = new SMS(body, adress, person, d, read);
-					MainModel.getInstance().addEmit(s);
-				}
-				// System.out.println(charCur[0]);
 			}
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 		Communication.getInstance().setClosed(true);
 		System.err.println("Client Listener closed");
+	}
+	
+	
+	private void readNumber(DataInputStream in) throws IOException {
+		String body=readString(in);
+		ApplicationContexte.setId(body);
+		MainModel.getInstance().init();
+	}
+
+	private void readPhoto(DataInputStream in) throws IOException {
+
+		// IMG
+		int id=in.readInt();
+		long length=in.readLong();
+		FileOutputStream fos = new FileOutputStream(new File(ApplicationContexte.path2save+"/SMSDesktop/"+ApplicationContexte.getId()+"/contact"+id+".png"));
+		byte buffer[]=new byte[512*1024];
+		int nbLecture;
+		int lu=0;
+		while( lu<length&&(nbLecture = in.read(buffer,0,Math.min(buffer.length, (int) (length-lu)))) != -1 ) {
+			fos.write(buffer, 0, nbLecture);
+			lu+=nbLecture;
+		} 
+		
+		fos.flush();
+		fos.close();
+//		JOptionPane.showMessageDialog(null, panel);
+			
+	}
+
+	private void readNew(DataInputStream in) throws IOException {
+		long time=in.readLong();
+		String numero=readString(in);
+		String body=readString(in);
+		
+		Date d = new Date(time);
+		SMS s = new SMS(body, numero, MainModel.getInstance()
+				.getContactByAddress(numero).getPerson(), d,
+				"false");
+		MainModel.getInstance().addSms(s);		
+	}
+
+	
+	
+	private void readAck(DataInputStream in) throws IOException {
+		long id= in.readLong();
+		String result=readString(in);
+		SendingStatus status = SendingStatus.valueOf(result);
+		SMSSender.getInstance().reconciliate(id,status);
+		System.out
+				.println("_________________________________________________________________\n");
+		System.out.println(id + "/" + result);
+		System.out
+				.println("_________________________________________________________________");
+	
+		
+	}
+	private void readContact(DataInputStream in) throws IOException {
+		String person=readString(in);
+		String name=readString(in);
+		String number=readString(in);
+		Contact c = new Contact(person, name, number);
+		MainModel.getInstance().addContact(c);
+	}
+	
+	private void readSMS(DataInputStream in) throws IOException {
+		String body=readString(in);
+		String adress=readString(in);
+		String person=readString(in);
+		String date=readString(in);
+		String read=readString(in);
+		String type=readString(in);
+		
+		Date d = new Date(Long.parseLong(date));
+		SMS s = new SMS(body, adress, person, d, read);
+		
+		if ("2".equals(type))
+			MainModel.getInstance().addEmit(s);
+		else
+			MainModel.getInstance().addSms(s);
+			
+	}
+
+	private String readString(DataInputStream in) throws IOException {
+		int length = in.readInt();
+		if (length==0)
+			return "";
+		byte[] b=new byte[length];
+		in.readFully(b);
+		String res=new String(b,"UTF-8");
+		return res;
 	}
 }
